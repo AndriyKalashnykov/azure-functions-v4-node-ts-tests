@@ -1,6 +1,70 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
-    "config:recommended"
-  ]
+    ":semanticCommitType(chore)",
+    "config:best-practices"
+  ],
+  "automergeType": "branch",
+  "prHourlyLimit": 0,
+  "commitBody": "Signed-off-by: Renovate Bot <bot@renovateapp.com>",
+  "prConcurrentLimit": 50,
+  "automerge": true,
+  "ignoreTests": false,
+  "commitMessageAction": "update",
+  "automergeStrategy": "squash",
+  "commitMessagePrefix": "chore(all): ",
+  "platformAutomerge": true,
+  "labels": [
+    "dependencies"
+  ],
+  "vulnerabilityAlerts": {
+    "labels": [
+      "security"
+    ],
+    "automerge": true,
+    "minimumReleaseAge": "0 days"
+  },
+  "packageRules": [
+    {
+      "description": "Wait 3 days before automerging major updates",
+      "matchUpdateTypes": [
+        "major"
+      ],
+      "minimumReleaseAge": "3 days"
+    },
+    {
+      "description": "Group GitHub Actions into one PR",
+      "matchManagers": [
+        "github-actions"
+      ],
+      "groupName": "GitHub Actions"
+    },
+    {
+      "description": "Group devDependencies non-major updates",
+      "matchDepTypes": [
+        "devDependencies"
+      ],
+      "matchUpdateTypes": [
+        "minor",
+        "patch"
+      ],
+      "groupName": "dev-dependencies",
+      "automerge": true
+    },
+    {
+      "description": "Group type definitions",
+      "matchPackageNames": [
+        "/^@types\\\\//"
+      ],
+      "groupName": "type-definitions",
+      "automerge": true
+    }
+  ],
+  "lockFileMaintenance": {
+    "enabled": true,
+    "automerge": true
+  },
+  "npm": {
+    "minimumReleaseAge": "3 days"
+  }
 }
